@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import Welcome from './Pages/Welcome';
-import LoginCadastro from './Pages/LoginCadastro';
-import Perfil from './Pages/Perfil';
+import Welcome from './Welcome';
+import LoginCadastro from './LoginCadastro';
+import Perfil from './Perfil';
 import { DatabaseConnection } from './Pages/conexao.js';
 
 const db = DatabaseConnection.getConnection();
-
-export default function App() {
+const Routes = () => {
   const [currentPage, setCurrentPage] = useState('Welcome');
 
   const handleNavigation = (page) => {
@@ -27,16 +25,7 @@ export default function App() {
     }
   };
 
-  return (
-    <View style={styles.container}>
-      {renderPage()}
-    </View>
-  );
-}
+  return renderPage();
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+export default Routes;
