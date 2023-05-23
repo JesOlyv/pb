@@ -1,11 +1,15 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet,Image } from 'react-native';
-import { DatabaseConnection } from './conexao';
+import { View, Text, Button, StyleSheet, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const db = DatabaseConnection.getConnection();
-const Welcome = ({ handleNavigation }) => {
+const Welcome = () => {
+  const navigation = useNavigation();
+
+  const handleNavigation = (screen) => {
+    navigation.navigate(screen);
+  };
+
   return (
-    
     <View style={styles.container}>
       <View style={styles.containerLogo}>
         <Text style={styles.welcomeText}>Bem-vindo!</Text>
@@ -14,18 +18,13 @@ const Welcome = ({ handleNavigation }) => {
         <Text style={styles.title}>Régis Construções</Text>
         <Text style={styles.text}>Conheça nossa equipe!</Text>
         <Button
-          title="Login! Cadastre -se "
+          title="Login! Cadastre-se"
           onPress={() => handleNavigation('LoginCadastro')}
         />
-           
-         
-         
-        
         <Button
           title="Equipe"
           onPress={() => handleNavigation('Perfil')}
         />
-        
       </View>
     </View>
   );

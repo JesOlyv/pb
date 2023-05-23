@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, ImageBackground, Image, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { DatabaseConnection } from './conexao.js';
 
@@ -8,9 +9,12 @@ const db = DatabaseConnection.getConnection();
 const LoginCadastro = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isRegistering, setIsRegistering] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false);
 
-  //CRIA A TABELA DE USUARIOS
+  // Obter o objeto de navegação
+  const navigation = useNavigation();
+
+  // CRIA A TABELA DE USUARIOS
   db.transaction(tx => {
     tx.executeSql(
       'CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20), password VARCHAR(10))',
@@ -36,19 +40,19 @@ const LoginCadastro = () => {
     console.log('Registering password:', password);
   };
 
-  //FUNCAO QUE ADICIONA NO BANCO AS INFORMAÇÕES DE CADASTRO
+  // FUNCAO QUE ADICIONA NO BANCO AS INFORMAÇÕES DE CADASTRO
   const adduser = () => {
     console.log(username, password);
 
     if (!username) {
-      alert('Por favor preencha o nome !'); //VERIFICA SE O NOME NAO ESTA EM BRANCO
+      alert('Por favor preencha o nome!');
       return;
     }
     if (!password) {
-      alert('Por favor preencha a senha !');
+      alert('Por favor preencha a senha!');
       return;
     }
-    // ABAIXO É A INSERÇÃO DE DADOS NO BANCO
+
     db.transaction(function (tx) {
       tx.executeSql(
         'INSERT INTO users (name, password) VALUES (?,?)',
@@ -56,32 +60,27 @@ const LoginCadastro = () => {
         (tx, results) => {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
-            alert('Usuário Registrado com Sucesso !!!'),
-              [navigation.navigate('Login')],
-              { cancelable: false };
-          } else alert('Erro ao tentar Registrar o Usuário !!!');
+            alert('Usuário Registrado com Sucesso!');
+            navigation.navigate('Perfil');
+          } else {
+            alert('Erro ao tentar Registrar o Usuário!');
+          }
         }
       );
     });
   };
 
   // FUNCAO PARA VALIDAR E LOGAR
-
   const entrar = () => {
-    /* Ir para a tela principal sem opção de voltar
-    navigation.reset({
-        index:0,
-        routes: [{name: "Principal"}]
-    })
-    */
     if (!username) {
-      alert('Por favor, entre com email e senha.!');
+      alert('Por favor, entre com email e senha!');
       return;
     }
     if (!password) {
-      alert('Por favor, entre com email e senha.!');
+      alert('Por favor, entre com email e senha!');
       return;
     }
+
     db.transaction((tx) => {
       tx.executeSql(
         'SELECT * FROM users where name = ?',
@@ -92,10 +91,11 @@ const LoginCadastro = () => {
           if (len > 0) {
             const pass = results.rows.item(0).password;
             console.log(pass);
-            if (username == results.rows.item(0).name && password == results.rows.item(0).password) {
+            if (username === results.rows.item(0).name && password === results.rows.item(0).password) {
               console.log(results.rows.item(0).username);
               console.log(results.rows.item(0).password);
-              alert('usuario logado!!');
+              alert('Usuário logado!');
+              navigation.navigate('Perfil');
             } else {
               alert('Usuário ou senha inválido!');
             }
@@ -113,14 +113,14 @@ const LoginCadastro = () => {
         style={styles.input}
         placeholder="Username"
         value={username}
-        onChangeText={(Text) => setUsername(Text)}
+        onChangeText={(text) => setUsername(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry
         value={password}
-        onChangeText={(Text) => setPassword(Text)}
+        onChangeText={(text) => setPassword(text)}
       />
       {isRegistering ? (
         <Button title="Enviar" onPress={adduser} />
@@ -140,15 +140,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#87CEFA', // Alteração da cor de fundo para amarelo claro
-  },
-  imagemfundo: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
+    backgroundColor: '#87CEFA',
   },
   input: {
     width: '100%',

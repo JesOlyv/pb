@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, Picker } from 'react-native';
-import { DatabaseConnection } from './conexao';
+import React from 'react';
+import { View, Text, Button, StyleSheet, Linking } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { useNavigation } from '@react-navigation/native';
 
-const db = DatabaseConnection.getConnection();
+const Perfil = () => {
+  const navigation = useNavigation();
 
-const Perfil = ({ handleNavigation }) => {
   const profiles = [
     { nome: 'Pedreiro Roger', experiencia: 'Experiência: 5 anos, me siga no Instagram', instagram: '@rogerobr' },
     { nome: 'Gesseiro Otto', experiencia: 'Experiência: 3 anos, me siga no Instagram', instagram: '@ottoob' },
@@ -13,11 +14,11 @@ const Perfil = ({ handleNavigation }) => {
     { nome: 'Armador Pedro', experiencia: 'Experiência: 6 anos, me siga no Instagram', instagram: '@dro_br' },
   ];
 
-  const [filtro, setFiltro] = useState('Todos');
-  const [perfilSelecionado, setPerfilSelecionado] = useState(null);
+  const [filtro, setFiltro] = React.useState('Todos');
+  const [perfilSelecionado, setPerfilSelecionado] = React.useState(null);
 
   const handleIrParaWelcome = () => {
-    handleNavigation('Welcome');
+    navigation.navigate('Welcome');
   };
 
   const handleFiltro = (filtroSelecionado) => {
@@ -27,6 +28,21 @@ const Perfil = ({ handleNavigation }) => {
 
   const handlePerfilSelecionado = (perfil) => {
     setPerfilSelecionado(perfil);
+  };
+
+  const handleContactWhatsApp = () => {
+    const phoneNumber = '21965391536';
+    const whatsappUrl = `whatsapp://send?phone=${phoneNumber}`;
+    
+    Linking.canOpenURL(whatsappUrl)
+      .then((supported) => {
+        if (supported) {
+          return Linking.openURL(whatsappUrl);
+        } else {
+          throw new Error("O WhatsApp não está instalado no dispositivo");
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   const perfisFiltrados = filtro === 'Todos' ? profiles : profiles.filter(profile => profile.nome.includes(filtro));
@@ -71,6 +87,7 @@ const Perfil = ({ handleNavigation }) => {
         <Text style={styles.contactText}>Para nos contratar, nos envie um e-mail:</Text>
         <Text style={styles.emailText}>constregis@gmail.com</Text>
         <Text style={styles.contactText}>Clientes cadastrados ganham 5% de desconto no serviço contratado! FAÇA SEU CADASTRO!</Text>
+        <Button title="Contato via WhatsApp" onPress={handleContactWhatsApp} />
       </View>
       <Button title="Início" onPress={handleIrParaWelcome} />
     </View>
@@ -78,63 +95,7 @@ const Perfil = ({ handleNavigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#87CEFA', // Fundo amarelo claro
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginVertical: 10,
-    color: '#000000', // Texto preto
-  },
-  filterContainer: {
-    marginBottom: 10,
-  },
-  picker: {
-    width: 200,
-    height: 40,
-  },
-  profilesContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  profileContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-  profileText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#000000', // Texto preto
-  },
-  profileExperience: {
-    fontSize: 12,
-    textAlign: 'center',
-    color: '#000000', // Texto preto
-  },
-  profileInstagram: {
-    fontSize: 12,
-    textAlign: 'center',
-    color: '#00008B', // Texto preto
-  },
-  contactContainer: {
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  contactText: {
-    fontSize: 16,
-    marginBottom: 5,
-    color: '#00008B', // Texto preto
-  },
-  emailText: {
-    fontSize: 16,
-    color: '#00008B', // Texto preto
-  },
+  // styles definition here...
 });
 
 export default Perfil;
