@@ -16,7 +16,7 @@ const Welcome = () => {
       </View>
       <View style={styles.containerForm}>
         <Text style={styles.title}>Régis Construções</Text>
-        <Text style={styles.text}>Conheça nossa Equipe</Text>
+        <Text style={styles.text}>Conheça nossa Equipe!</Text>
         <Button
           title="Login/Cadastre-se"
           onPress={() => handleNavigation('LoginCadastro')}
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   containerForm: {
     flex: 1,
-    backgroundColor: '#373737',
+    backgroundColor: '#87CEFA',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     paddingStart: '5%',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 28,
     marginBottom: 12,
-    color: '#333333',
+    color: '#87CEFA',
   },
   title: {
     fontSize: 28,
