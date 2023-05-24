@@ -12,17 +12,17 @@ const Welcome = () => {
   return (
     <View style={styles.container}>
       <View style={styles.containerLogo}>
-        <Text style={styles.welcomeText}>Bem-vindo!</Text>
+        <Text style={styles.welcomeText}>Boas vindas!</Text>
       </View>
       <View style={styles.containerForm}>
-        <Text style={styles.title}>Régis Construções</Text>
-        <Text style={styles.text}>Conheça nossa equipe!</Text>
+        <Text style={styles.title}>Bico</Text>
+        <Text style={styles.text}>Freelancer</Text>
         <Button
-          title="Login! Cadastre-se"
+          title="Logar/Cadastrar"
           onPress={() => handleNavigation('LoginCadastro')}
         />
         <Button
-          title="Equipe"
+          title=" Nossa Equipe"
           onPress={() => handleNavigation('Perfil')}
         />
       </View>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   containerForm: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#373737',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     paddingStart: '5%',
