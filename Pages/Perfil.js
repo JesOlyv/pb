@@ -7,11 +7,11 @@ const Perfil = () => {
   const navigation = useNavigation();
 
   const profiles = [
-    { nome: 'Pedreiro Luis', experiencia: 'Experiência: 4 anos, me siga no Instagram', instagram: '@luisbr' },
-    { nome: 'Gesseiro Bernado', experiencia: 'Experiência: 1 anos, me siga no Instagram', instagram: '@berobr' },
-    { nome: 'Ladrilheiro Fabricio', experiencia: 'Experiência: 6 anos, me siga no Instagram', instagram: '@fabbr' },
-    { nome: 'Pintor Elmo', experiencia: 'Experiência: 7 anos, me siga no Instagram', instagram: '@el_ob' },
-    { nome: 'Armador Breno', experiencia: 'Experiência: 8 anos, me siga no Instagram', instagram: '@brr_br' },
+    { nome: 'Pedreiro Roger', experiencia: 'Experiência: 5 anos, me siga no Instagram', instagram: '@rogerobr' },
+    { nome: 'Gesseiro Otto', experiencia: 'Experiência: 3 anos, me siga no Instagram', instagram: '@ottoob' },
+    { nome: 'Ladrilheiro Lucio', experiencia: 'Experiência: 2 anos, me siga no Instagram', instagram: '@obrlucio' },
+    { nome: 'Pintor Hugo', experiencia: 'Experiência: 4 anos, me siga no Instagram', instagram: '@hugo_ob' },
+    { nome: 'Armador Pedro', experiencia: 'Experiência: 6 anos, me siga no Instagram', instagram: '@dro_br' },
   ];
 
   const [filtro, setFiltro] = React.useState('Todos');
@@ -83,10 +83,10 @@ const Perfil = () => {
       )}
       <View style={styles.contactContainer}>
         <Text style={styles.contactText}>Siga-nos no Instagram:</Text>
-        <Text style={styles.emailText}>@bicofreel</Text>
+        <Text style={styles.emailText}>@constregis</Text>
         <Text style={styles.contactText}>Para nos contratar, nos envie um e-mail:</Text>
-        <Text style={styles.emailText}>bicofreel@gmail.com</Text>
-        <Text style={styles.contactText}>Clientes cadastrados ganham 10% de desconto no serviço contratado! EFETUE SEU CADASTRO!</Text>
+        <Text style={styles.emailText}>constregis@gmail.com</Text>
+        <Text style={styles.contactText}>Clientes cadastrados ganham 5% de desconto no serviço contratado! FAÇA SEU CADASTRO!</Text>
         <Button title="Contato via WhatsApp" onPress={handleContactWhatsApp} />
       </View>
       <Button title="Início" onPress={handleIrParaWelcome} />

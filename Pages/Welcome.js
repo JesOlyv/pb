@@ -12,13 +12,13 @@ const Welcome = () => {
   return (
     <View style={styles.container}>
       <View style={styles.containerLogo}>
-        <Text style={styles.welcomeText}>Boas vindas!</Text>
+        <Text style={styles.welcomeText}>Bem vindo!</Text>
       </View>
       <View style={styles.containerForm}>
-        <Text style={styles.title}>Bico</Text>
-        <Text style={styles.text}>Freelancer</Text>
+        <Text style={styles.title}>Régis Construções</Text>
+        <Text style={styles.text}>Conheça nossa Equipe</Text>
         <Button
-          title="Logar/Cadastrar"
+          title="Login/Cadastre-se"
           onPress={() => handleNavigation('LoginCadastro')}
         />
         <Button
