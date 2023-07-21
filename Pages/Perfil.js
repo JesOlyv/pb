@@ -31,7 +31,7 @@ const Perfil = () => {
   };
 
   const handleContactWhatsApp = () => {
-    const phoneNumber = '+5521965391536';
+    const phoneNumber = '+5521969079238';
     const whatsappUrl = `whatsapp://send?phone=${phoneNumber}`;
     
     Linking.canOpenURL(whatsappUrl)
